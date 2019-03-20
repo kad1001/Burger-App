@@ -3,9 +3,11 @@ const connection = require('./connection');
 
 
 function questionMark(num) {
+    let ar = [];
     for (var i = 0; i < num; i++) {
-        return "?";
+        ar.push("?");
     }
+    return ar
 }
 
 

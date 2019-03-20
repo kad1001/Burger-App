@@ -22,38 +22,29 @@ router.get('/', function (req, res) {
 });
 
 //   adds a burger to the burgers table
-router.post('/burgers', function (req, res) {
-    burger.insertOne([ //updating the actual mysql component
-        'burger_name'
-    ], [ // the name of the burger is the name in the body
-        req.body.burger_name
+router.post('/burgers', function (req, res) { //updating the actual mysql component
+    burger.insertOne([ //Columns --- 
+        'burger_name',
+        'ketchup',
+        'patty'
+    ], [ // Values -- the name of the burger is the name in the body
+        req.body.burger_name, req.body.ketchup, req.body.patty
     ], function (data) {
-        // refreshes page
         res.redirect('/');
     });
 });
-router.post('/burgers', function (req, res) {
-    burger.insertOne([ //updating the actual mysql component
-        'ketchup'
-    ], [ // the name of the burger is the name in the body
-        req.body.ketchup
-    ], function (data) {
-        // refreshes page
-        res.redirect('/');
-    });
-});
+
 
 
 //   when user clicks on a burger to eat it...
 router.put('/burgers/:id', function (req, res) {
     let condition = 'id = ' + req.params.id;
-    let ketchup = 'ketchup = ' + req.params.ketchup;
+    // let ketchup = 'ketchup = ' + req.params.ketchup;
     console.log(req.params);
 
 
     burger.updateOne({
         devoured: 1,
-        ketchup
     }, condition, function (data) {
         res.redirect('/');
     });
