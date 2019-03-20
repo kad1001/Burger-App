@@ -1,7 +1,7 @@
 // Pull in required dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
-// const methodOverride = require('method-override');
+const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 
 const port = process.env.PORT || 3000;
@@ -11,10 +11,10 @@ const app = express();
 // Serve static content for the app from the 'public' directory
 app.use(express.static(process.cwd() + '/public'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Override with POST having ?_method=DELETE
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));

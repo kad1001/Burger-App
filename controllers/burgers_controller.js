@@ -1,4 +1,3 @@
-
 //    * Express
 const express = require('express');
 //    * `burger.js`
@@ -9,35 +8,57 @@ const router = express.Router();
 
 
 // Create the routes and associated logic
-router.get('/', function(req, res) {
-    burger.selectAll(function(data) {
-      var hbsObject = {
-        burgers: data
-      };
-      // console.log(hbsObject);
-      res.render('index', hbsObject);
+router.get('/', function (req, res) {
+
+    burger.selectAll(function (data) {
+
+        // get the data from the burgers table
+        let hbsObject = {
+            burgers: data
+        };
+        console.log(hbsObject);
+        res.render('index', hbsObject);
     });
-  });
-  
-  router.post('/burgers', function(req, res) {
-    burger.insertOne([
-      'burger_name'
-    ], [
-      req.body.burger_name
-    ], function(data) {
-      res.redirect('/');
+});
+
+//   adds a burger to the burgers table
+router.post('/burgers', function (req, res) {
+    burger.insertOne([ //updating the actual mysql component
+        'burger_name'
+    ], [ // the name of the burger is the name in the body
+        req.body.burger_name
+    ], function (data) {
+        // refreshes page
+        res.redirect('/');
     });
-  });
-  
-  router.put('/burgers/:id', function(req, res) {
-    var condition = 'id = ' + req.params.id;
-  
+});
+router.post('/burgers', function (req, res) {
+    burger.insertOne([ //updating the actual mysql component
+        'ketchup'
+    ], [ // the name of the burger is the name in the body
+        req.body.ketchup
+    ], function (data) {
+        // refreshes page
+        res.redirect('/');
+    });
+});
+
+
+//   when user clicks on a burger to eat it...
+router.put('/burgers/:id', function (req, res) {
+    let condition = 'id = ' + req.params.id;
+    let ketchup = 'ketchup = ' + req.params.ketchup;
+    console.log(req.params);
+
+
     burger.updateOne({
-      devoured: true
-    }, condition, function(data) {
-      res.redirect('/');
+        devoured: 1,
+        ketchup
+    }, condition, function (data) {
+        res.redirect('/');
     });
-  });
-  
-  // Export routes for server.js to use.
-  module.exports = router;
+});
+
+
+// Export routes for server.js to use.
+module.exports = router;
