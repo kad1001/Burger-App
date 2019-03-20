@@ -11,17 +11,20 @@
     <div class="container">
         {{!-- put from the sql --}}
         <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
-            <div class="burgerWrapper">
+
+            <button type="submit" class="eatButton"> 
+                            <div class="burgerWrapper">
                 <div class="topBun"></div>
                 {{#if this.ketchup}}
                 <img class="bacon" src="/assets/img/bacon.png">
                 {{/if}}
-                {{!-- {{#if this.patty}} --}}
+                {{#if this.patty}}
+                <div class="cheesepls"></div>
+                {{/if}}
                 <div class="patty"></div>
-                {{!-- {{/if}} --}}
                 <div class="bBun"></div>
             </div>
-            <button type="submit" class="eatButton"> {{this.burger_name}} </button>
+                {{this.burger_name}} </button>
         </form>
     </div>
 
@@ -52,13 +55,13 @@
 <div class="row">
     <div class="col s12">
         <form action="/burgers" method="POST">
-        <div class="container">
-            <input type="text" id="name" name="burger_name" placeholder="Dream Burger">
-            <input type="checkbox" name="ketchup" value="1">Bacon
-            <input type="checkbox" name="patty" value="1">Cheese
-            <button type="submit" class="addBurgerButton">Add The Burger</button>
+            <div class="container">
+                <input type="text" id="name" name="burger_name" placeholder="Dream Burger">
+                <input type="checkbox" name="ketchup" value="1">Bacon
+                <input type="checkbox" name="patty" value="1">Cheese
+                <button type="submit" class="addBurgerButton">Add The Burger</button>
 
         </form>
-        </div>
     </div>
+</div>
 </div>

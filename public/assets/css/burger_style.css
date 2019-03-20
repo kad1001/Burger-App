@@ -20,15 +20,36 @@ border-radius: 95px 95px 15px 15px
     border-radius: 70%
 }
 
-.cheese {
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
     
-}
+    border-bottom: 5px solid black;
+  }
+  
+  /* .cheesepls {
+    width: 0; 
+    height: 0; 
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 30px solid yellow;
+    z-index: 1;
+  } */
+
+  .cheesepls {
+      width: 90px;
+      height: 5px;
+      background-color: orange;
+  }
+  
 .patty {
     background-color: brown;
     height: 20px;
-    width: 120px;
+    width: 110px;
     border-radius: 10%;
-    z-index: -1 /* covered by yummy toppings yo */
+    z-index: -1; /* covered by yummy toppings yo */
 }
 .burgerWrapper {
     display: flexbox;
