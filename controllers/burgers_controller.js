@@ -26,9 +26,11 @@ router.post('/burgers', function (req, res) { //updating the actual mysql compon
     burger.insertOne([ //Columns --- 
         'burger_name',
         'ketchup',
-        'patty'
+        'patty',
+        'mushrooms',
+        'mystery'
     ], [ // Values -- the name of the burger is the name in the body
-        req.body.burger_name, req.body.ketchup, req.body.patty
+        req.body.burger_name, req.body.ketchup, req.body.patty, req.body.mushrooms, req.body.mystery
     ], function (data) {
         res.redirect('/');
     });

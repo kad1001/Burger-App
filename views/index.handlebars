@@ -1,67 +1,97 @@
-<h1>Eat It!</h1>
+<span>Burger Builder</span>
+<div class='jumbotron'>
+    <h2 class="hi">Available Burgers...mmmmmmm</h2>
+    {{!-- UNLESS devoured, list each burger--}}
+    {{!-- <div class="container"> --}}
+        {{#each burgers}}
+        {{#unless this.devoured}}
 
+        <div class="d-inline-flex container">
 
-<h2>Available Burgers...mmmm</h2>
-{{!-- UNLESS --}}
+            {{!-- when form is submitted, the data will be posted to route /burgers/... --}}
+            <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
 
-<div class="container">
-    {{#each burgers}}
-    {{#unless this.devoured}}
+                {{!-- wrap the burger divs in a button --}}
+                <button type="submit" class="eatButton">
 
-    <div class="container">
-        {{!-- put from the sql --}}
-        <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+                    <div class="burgerWrapper">
+                        {{!-- Top bun --}}
+                        <div class="topBun"></div>
 
-            <button type="submit" class="eatButton"> 
-                            <div class="burgerWrapper">
-                <div class="topBun"></div>
-                {{#if this.ketchup}}
-                <img class="bacon" src="/assets/img/bacon.png">
-                {{/if}}
-                {{#if this.patty}}
-                <div class="cheesepls"></div>
-                {{/if}}
-                <div class="patty"></div>
-                <div class="bBun"></div>
-            </div>
-                {{this.burger_name}} </button>
-        </form>
-    </div>
+                        {{#if this.mystery}}
+                        {{!-- Mystery toppings --}}
+                        <div class="mystery"></div>
+                        {{/if}}
 
-    {{/unless}}
-    {{/each}}
+                        {{#if this.mushrooms}}
+                        {{!-- Mushrooms --}}
+
+                        <div class='shrooms'></div>
+                        {{/if}}
+                        {{!-- Bacon (ketchup in mysql) --}}
+
+                        {{#if this.ketchup}}
+                        <img class="bacon" src="/assets/img/bacon.png">
+                        {{/if}}
+
+                        {{!-- Cheese (patty in mysql)  --}}
+                        {{#if this.patty}}
+                        <div class="cheesepls"></div>
+                        {{/if}}
+
+                        {{!-- Meat (patty) --}}
+                        <div class="patty"></div>
+
+                        {{!-- Bottom bun --}}
+                        <div class="bBun"></div>
+                    </div>
+
+                    {{this.burger_name}}
+                </button>
+
+            </form>
+            {{/unless}}
+            {{/each}}
+    
+        </div>
+  </div>
 </div>
-
-
-
-<h2>Eaten Burgers</h2>
-{{!-- IF --}}
-<div class="container">
-
-    {{#each burgers}}
-    {{#if this.devoured}}
+</div>
     <div class="eaten">
-        <div>
-            {{this.burger_name}}
+        <h2 class="hi">Eaten Burgers</h2>
+        <div class="container">
+
+            {{#each burgers}}
+            {{#if this.devoured}}
+
+            <ul>
+                <li>{{this.burger_name}}</li>
+            </ul>
+
+            {{/if}}
+            {{/each}}
+
         </div>
     </div>
+    </div>
+    </div>
 
-    {{/if}}
-    {{/each}}
-</div>
+    <h2 class="hi">Add A Burger</h2>
 
-<h2>Add A Burger</h2>
-
-<div class="row">
-    <div class="col s12">
+    <div class="container">
         <form action="/burgers" method="POST">
+
             <div class="container">
+
+                    <h1><input type="checkbox" name="ketchup" value="1">Bacon</h1>
+                <h1><input type="checkbox" name="patty" value="1">Cheese</h1>
+                 <h1><input type="checkbox" name="mushrooms" value="1">Mushrooms</h1>
+                <h1><input type="checkbox" name="mystery" value="1">Mystery topping</h1>
+
                 <input type="text" id="name" name="burger_name" placeholder="Dream Burger">
-                <input type="checkbox" name="ketchup" value="1">Bacon
-                <input type="checkbox" name="patty" value="1">Cheese
-                <button type="submit" class="addBurgerButton">Add The Burger</button>
+        
+                <button type="submit" class="addBurgerButton">Add</button>
 
         </form>
     </div>
-</div>
 </div>
