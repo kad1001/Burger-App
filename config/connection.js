@@ -1,15 +1,21 @@
 // * Inside the `connection.js` file, setup the code to connect Node to MySQL.
 
-const mysql = require('mysql');
+var mysql = require('mysql');
+var connection;
 
+// JawsDb
+if (process.env.JAWSDB_COPPER) {
+  connection = mysql.createConnection(process.env.JAWSDB_COPPER);
+} else {
 // MySql config
-const connection = mysql.createConnection({
+connection = mysql.createConnection({
   port: 3306,
   host: "localhost",
   user: "root",
   password: "password",
   database: "burgers_db"
 });
+};
 
 // Connect to the database
 connection.connect(function(err) {
