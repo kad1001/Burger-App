@@ -1,26 +1,49 @@
-// import da orm
-const orm = require('../config/orm');
-
-// burger object
-module.exports = {
-    // Select all burger table entries
-    selectAll: function(cb) {
-      orm.selectAll('burgers', function(res) {
-        cb(res);
-      });
-    },
-  
-    // The variables cols and vals are arrays
-    insertOne: function(cols, vals, cb) {
-      orm.insertOne('burgers', cols, vals, function(res) {
-        cb(res);
-      });
-    },
-  
-    // The objColVals is an object specifying columns as object keys with associated values
-    updateOne: function(objColVals, condition, cb) {
-      orm.updateOne('burgers', objColVals, condition, function(res) {
-        cb(res);
-      });
-    }
+// sequelize burger object model
+module.exports = function (sequelize, DataTypes) {
+    // define the model
+    var Burger = sequelize.define("Burger", {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      devoured: {
+        // instead of tinyint(1)
+        type: DataTypes.BOOLEAN,
+        // instead of default 0
+        defaultValue: false
+      },
+      // ===========
+      // spice up ur burger w some extras
+      // ============
+      patty: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      ketchup: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      mushrooms: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      mystery: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      }
+    }, {
+      classMethods: {
+        associate: function (models) {
+          // Burger is associated with one customer
+          Burger.belongsTo(models.Customer, {
+            onDelete: "CASCADE",
+            foreignKey: {
+              allowNull: true
+              // name: 'CustomerName'
+            }
+          });
+        }
+      }
+    });
+    return Burger;
   };

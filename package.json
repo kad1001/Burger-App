@@ -18,10 +18,21 @@
   },
   "homepage": "https://github.com/kad1001/burger-app#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
     "jquery": "^3.3.1",
+    "mysql": "^2.16.0",
+
+
+    "handlebars": "^4.1.1",
+    "loglevel": "^1.4.1",
     "method-override": "^3.0.0",
-    "mysql": "^2.16.0"
+    "path": "^0.12.7",
+    "sequelize": "^3.34.0"
+  },
+  "engines": {
+    "node": "6.9.5",
+    "npm": "3.10.10"
   }
 }

@@ -5,12 +5,21 @@ body {
 
 /* "Burger Builder" */
 span {
-    font-family: 'Press Start 2P', cursive;
+    /* font-family: 'Press Start 2P', cursive; */
     font-size: 40px;
     /* text-align: center; */
     color: darkblue;
     margin-left: 20%;
     /* margin-right: auto; */
+}
+
+.options {
+    list-style: none;
+}
+
+.addBurgerButton {
+    background-color: brown;
+    color: wheat;
 }
 
 .topBun {
@@ -32,21 +41,35 @@ span {
     margin-right: auto;
 }
 
-/* condiments */
 
+.eaten {
+
+    background-color: palevioletred;
+}
+
+.menu {
+    background-color: palegoldenrod;
+    color: brown;
+    margin: 2px;
+}
+
+.avail {
+    background-color: paleturquoise;
+}
 
 .hi {
     font-family: 'Tangerine', serif;
     font-size: 48px;
     text-shadow: 4px 4px 4px #aaa;
     font-weight: bold;
+    /* background-color: brown */
 }
 
 button {
     font-size: 30px;
     font-weight: bold;
     background-color: white;
-    border: 2px solid brown;
+    /* border: 2px solid brown; */
     font-weight: bold;
 }
 
@@ -54,24 +77,24 @@ input {
     list-style: none;
 }
 
-button:hover {
+/* button:hover {
     box-shadow: 4px 4px black;
-}
+} */
 
 li,
 h1 {
-    font-family: 'Tangerine', serif;
-    font-size: 44px;
+    /* font-family: 'Tangerine', serif; */
+    /* font-size: 44px; */
     color: brown;
-    list-style: circle;
-    font-weight: bold;
+    /* list-style: circle; */
+    /* font-weight: bold; */
 }
 
 .cheesepls {
     width: 90px;
     height: 5px;
     background-color: yellow;
-    z-index: -1;
+    /* z-index: -1; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -81,7 +104,7 @@ h1 {
     height: 20px;
     width: 110px;
     border-radius: 10%;
-    z-index: -1;
+    /* z-index: -1; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -114,10 +137,10 @@ h1 {
 }
 
 /* Environment */
-.burgerWrapper {
+/* .burgerWrapper {
     width: 140px;
     border-bottom: 4px solid brown;
-}
+} */
 
 .eaten {
     padding-left: 10%;

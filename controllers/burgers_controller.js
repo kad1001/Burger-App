@@ -1,57 +1,101 @@
-//    * Express
-const express = require('express');
-//    * `burger.js`
-const burger = require('../models/burger');
+// Pull in the Burger model
+var db = require("../models");
+module.exports = function(app) {
+  // Retrieve the list of all burgers in the database
+  app.get("/", function(req, res) {
+    db.Burger.findAll({
+      include: [ db.Customer ],
+      order: "name ASC"
+    })
+    .then(function(data) {
 
-// 4. Create the `router` for the app, and export the `router` at the end of your file.
-const router = express.Router();
-
-
-// Create the routes and associated logic
-router.get('/', function (req, res) {
-
-    burger.selectAll(function (data) {
-
-        // get the data from the burgers table
-        let hbsObject = {
-            burgers: data
-        };
-        console.log(hbsObject);
-        res.render('index', hbsObject);
+      var hbsObject = {
+        burgers: data
+      };
+      console.log(hbsObject);
+      res.render('index', hbsObject);
+    })
+    .catch(function(err) {
+      res.json({status: "ERROR", message: err});
     });
-});
+  });
 
-//   adds a burger to the burgers table
-router.post('/burgers', function (req, res) { //updating the actual mysql component
-    burger.insertOne([ //Columns --- 
-        'burger_name',
-        'ketchup',
-        'patty',
-        'mushrooms',
-        'mystery'
-    ], [ // Values -- the name of the burger is the name in the body
-        req.body.burger_name, req.body.ketchup, req.body.patty, req.body.mushrooms, req.body.mystery
-    ], function (data) {
-        res.redirect('/');
+  // Create a new burger entry
+  app.post("/burgers", function(req, res) {
+
+    db.Burger.create(req.body)
+    .then(function(burger) {
+      res.redirect("/");
+    })
+    .catch(function(err) {
+      res.json({status: "ERROR", message: err});
     });
-});
+  });
 
+  // Update an existing burger entry
+  app.put("/burgers/:id", function(req, res) {
+    var burgerID = req.params.id;
+    var customerName = req.body.customerName;
 
+    db.Customer.findAll({
+      where: {
+        name: customerName
+      }
+    })
+    .then(function(customer) {
+      // Check if customer exists
+      if (customer.length === 0) {
+        // Create new customer
+        db.Customer.create({
+          name: customerName
+        })
+        .then(function(newCustomer) {
+          // Add customer reference to burger
+          db.Burger.update(
+            {
+              devoured: true,
+              CustomerId: newCustomer.id
+            },
+            {
+              where: {
+                id: req.params.id
+              }
+            }
+          ).then(function(burger) {
+            res.redirect('/');
+          })
+          .catch(function (err) {
+            res.json({status: "ERROR", message: err});
+          });
+        })
+        .catch(function(error) {
+          res.json({status: "ERROR", message: error});
+        })
+      } else { // customer exists
 
-//   when user clicks on a burger to eat it...
-router.put('/burgers/:id', function (req, res) {
-    let condition = 'id = ' + req.params.id;
-    // let ketchup = 'ketchup = ' + req.params.ketchup;
-    console.log(req.params);
-
-
-    burger.updateOne({
-        devoured: 1,
-    }, condition, function (data) {
-        res.redirect('/');
+        // Add customer reference to burger
+        db.Burger.update(
+          {
+            devoured: true,
+            CustomerId: customer[0].id
+          },
+          {
+            where: {
+              id: req.params.id
+            }
+          }
+        ).then(function(burger) {
+          res.redirect('/');
+        })
+        .catch(function (err) {
+          res.json({status: "ERROR", message: err});
+        });
+      } // end customer exists
+    })
+    .catch(function(error) {
+      if(error) {
+        res.json({status: "ERROR", message: error});
+      }
     });
-});
-
-
-// Export routes for server.js to use.
-module.exports = router;
+  });
+};
