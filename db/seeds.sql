@@ -1,4 +1,4 @@
--- -- delete burger from table when ya eat it
+-- delete burger from table when ya eat it
 
--- ALTER TABLE burgers
+ALTER TABLE burgers
 

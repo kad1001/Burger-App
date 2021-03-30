@@ -1,6 +1,4 @@
-// * Import (require) `connection.js` into `orm.js`
 const connection = require('./connection');
-
 
 function questionMark(num) {
     let ar = [];
@@ -14,7 +12,6 @@ function questionMark(num) {
 function toSql(ob) {
     let array = [];
     for (var key in ob) {
-        console.log(ob);
         array.push(key + "=" + ob[key]);
     }
     return array

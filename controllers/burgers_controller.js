@@ -24,7 +24,7 @@ module.exports = function(app) {
   app.post("/burgers", function(req, res) {
 
     db.Burger.create(req.body)
-    .then(function(burger) {
+    .then(function() {
       res.redirect("/");
     })
     .catch(function(err) {
@@ -34,7 +34,6 @@ module.exports = function(app) {
 
   // Update an existing burger entry
   app.put("/burgers/:id", function(req, res) {
-    var burgerID = req.params.id;
     var customerName = req.body.customerName;
 
     db.Customer.findAll({
@@ -61,7 +60,7 @@ module.exports = function(app) {
                 id: req.params.id
               }
             }
-          ).then(function(burger) {
+          ).then(function() {
             res.redirect('/');
           })
           .catch(function (err) {
@@ -84,7 +83,7 @@ module.exports = function(app) {
               id: req.params.id
             }
           }
-        ).then(function(burger) {
+        ).then(function() {
           res.redirect('/');
         })
         .catch(function (err) {
